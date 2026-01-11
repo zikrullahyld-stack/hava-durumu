@@ -1,55 +1,67 @@
-* { box-sizing: border-box; }
+const cityData = {
+  "Bursa": [
+    "Osmangazi","Nilüfer","Yıldırım","İnegöl","Gemlik","Mudanya",
+    "Mustafakemalpasa","Karacabey","Orhangazi","Kestel","Gürsu"
+  ]
+};
 
-body {
-  margin: 0;
-  height: 100vh;
-  background: radial-gradient(circle at top,#021027,#000);
-  font-family: system-ui, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
+const citySelect = document.getElementById("citySelect");
+const districtSelect = document.getElementById("districtSelect");
+const loader = document.getElementById("loader");
+const result = document.getElementById("result");
+
+function onCityChange() {
+  districtSelect.innerHTML = "<option value=''>İlçe seçiniz</option>";
+  const districts = cityData[citySelect.value];
+
+  if (!districts) return;
+
+  districtSelect.disabled = false;
+
+  districts.forEach(d => {
+    const opt = document.createElement("option");
+    opt.value = d;
+    opt.textContent = d;
+    districtSelect.appendChild(opt);
+  });
 }
 
-.app {
-  width: 360px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 18px;
-  padding: 25px;
-  box-shadow: 0 0 40px rgba(0,200,255,.4);
-}
+async function fetchWeather() {
+  const city = citySelect.value;
+  const district = districtSelect.value;
 
-.header {
-  text-align: center;
-  margin-bottom: 15px;
-}
+  if (!city || !district) {
+    alert("Lütfen il ve ilçe seçiniz.");
+    return;
+  }
 
-.controls select, button {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  margin-top: 10px;
-  border: none;
-}
+  loader.style.display = "block";
+  result.innerHTML = "";
 
-button {
-  background: linear-gradient(135deg,#00eaff,#4f6bff);
-  cursor: pointer;
-  font-weight: bold;
-}
+  try {
+    const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${district},${city}&count=1`);
+    const geoData = await geo.json();
 
-.loader {
-  display: none;
-  margin-top: 15px;
-  text-align: center;
-  animation: blink 1s infinite;
-}
+    if (!geoData.results) throw "Konum bulunamadı";
 
-@keyframes blink {
-  50% { opacity: .4; }
-}
+    const { latitude, longitude } = geoData.results[0];
 
-.result {
-  margin-top: 20px;
-  line-height: 1.6;
+    const weather = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`
+    );
+
+    const data = await weather.json();
+
+    loader.style.display = "none";
+
+    result.innerHTML = `
+      <h2>${district}, ${city}</h2>
+      🌡️ Sıcaklık: ${data.current.temperature_2m} °C<br>
+      💧 Nem: ${data.current.relative_humidity_2m}%<br>
+      💨 Rüzgar: ${data.current.wind_speed_10m} km/h
+    `;
+  } catch (e) {
+    loader.style.display = "none";
+    result.innerHTML = "Veri alınırken hata oluştu.";
+  }
 }
