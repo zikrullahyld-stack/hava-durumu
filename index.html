@@ -2,35 +2,35 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Türkiye Akıllı Hava Durumu Sistemi</title>
+<title>Bursa Akıllı Hava Durumu</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app">
-
-  <div class="header">
-    <h1>Türkiye Akıllı Hava Durumu</h1>
-    <p>Gerçek zamanlı meteoroloji ağı</p>
-  </div>
+  <h1>Bursa Hava Durumu</h1>
 
   <div class="controls">
-    <select id="citySelect" onchange="onCityChange()">
-      <option value="">İl seçiniz</option>
-      <option value="Bursa">Bursa</option>
+    <select id="districtSelect">
+      <option value="">İlçe Seç</option>
+      <option>Osmangazi</option>
+      <option>Nilüfer</option>
+      <option>Yıldırım</option>
+      <option>İnegol</option>
+      <option>Gemlik</option>
+      <option>Mudanya</option>
+      <option>Mustafakemalpasa</option>
+      <option>Karacabey</option>
+      <option>Orhangazi</option>
+      <option>Kestel</option>
+      <option>Gürsu</option>
     </select>
 
-    <select id="districtSelect" disabled>
-      <option value="">İlçe seçiniz</option>
-    </select>
-
-    <button onclick="fetchWeather()">Hava Durumunu Göster</button>
+    <button onclick="getWeather()">Göster</button>
   </div>
 
-  <div id="loader" class="loader">Veriler alınıyor...</div>
-
-  <div id="result" class="result"></div>
-
+  <div id="loader" class="loader"></div>
+  <div id="result"></div>
 </div>
 
 <script src="script.js"></script>
