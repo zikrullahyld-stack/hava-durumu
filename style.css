@@ -1,28 +1,60 @@
 body {
-  background: linear-gradient(120deg, #74b9ff, #0984e3);
-  font-family: Arial;
-  text-align: center;
+  margin: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: system-ui;
   color: white;
 }
 
 .app {
-  margin-top: 80px;
-  background: rgba(0,0,0,0.2);
-  padding: 30px;
-  border-radius: 15px;
-  display: inline-block;
+  width: 350px;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(0,200,255,.6);
+  position: relative;
+  overflow: hidden;
 }
 
-input {
-  padding: 10px;
-  border-radius: 8px;
+.bgvideo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .25;
+}
+
+h1 {
+  text-align: center;
+  background: linear-gradient(90deg,#00f2ff,#7f8cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 10px;
   border: none;
 }
 
 button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
+  background: linear-gradient(135deg,#00eaff,#5b6bff);
   cursor: pointer;
-  background: #ffeaa7;
+  font-weight: bold;
+}
+
+.loading {
+  display: none;
+  margin-top: 15px;
+  text-align: center;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: .4 }
 }
