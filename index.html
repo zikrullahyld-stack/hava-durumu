@@ -2,17 +2,27 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Hava Durumu</title>
+  <title>HAVA DURUMU ☀ </title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app">
-  <h1>🌤️ Hava Durumu</h1>
-  <input type="text" id="city" placeholder="Şehir adı yaz">
-  <button onclick="getWeather()">Göster</button>
+  <h1>🌍 Future Weather</h1>
+
+  <input id="city" placeholder="İl veya ilçe gir">
+
+  <button onclick="getWeather()">Hava Durumunu Göster</button>
+
+  <div id="loading" class="loading">📡 Veri alınıyor...</div>
 
   <div id="result"></div>
+
+  <video autoplay loop muted class="bgvideo">
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4">
+  </video>
+
+  <audio id="sound" src="https://assets.mixkit.co/sfx/preview/mixkit-tech-click-1140.mp3"></audio>
 </div>
 
 <script src="script.js"></script>
