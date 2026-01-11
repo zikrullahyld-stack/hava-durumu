@@ -2,36 +2,36 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Bursa Akıllı Hava Durumu</title>
+<title>Bursa Hava Durumu</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
-  <h1>Bursa Hava Durumu</h1>
+<h1>Bursa Hava Durumu</h1>
 
-  <div class="controls">
-    <select id="districtSelect">
-      <option value="">İlçe Seç</option>
-      <option>Osmangazi</option>
-      <option>Nilüfer</option>
-      <option>Yıldırım</option>
-      <option>İnegol</option>
-      <option>Gemlik</option>
-      <option>Mudanya</option>
-      <option>Mustafakemalpasa</option>
-      <option>Karacabey</option>
-      <option>Orhangazi</option>
-      <option>Kestel</option>
-      <option>Gürsu</option>
-    </select>
+<select id="district">
+  <option value="">İlçe seç</option>
+  <option>Osmangazi</option>
+  <option>Nilüfer</option>
+  <option>Yıldırım</option>
+  <option>İnegol</option>
+  <option>Gemlik</option>
+  <option>Mudanya</option>
+  <option>Mustafakemalpasa</option>
+  <option>Karacabey</option>
+  <option>Orhangazi</option>
+  <option>Kestel</option>
+  <option>Gürsu</option>
+  <option>Yenişehir</option>
+  <option>Orhaneli</option>
+  <option>Keles</option>
+  <option>Büyükorhan</option>
+  <option>Harmancık</option>
+</select>
 
-    <button onclick="getWeather()">Göster</button>
-  </div>
+<button onclick="getWeather()">Göster</button>
 
-  <div id="loader" class="loader"></div>
-  <div id="result"></div>
-</div>
+<div id="result"></div>
 
 <script src="script.js"></script>
 </body>
