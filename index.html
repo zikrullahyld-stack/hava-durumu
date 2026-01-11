@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>HAVA DURUMU ☀ </title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Türkiye Akıllı Hava Durumu Sistemi</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app">
-  <h1>🌍 Future Weather</h1>
 
-  <input id="city" placeholder="İl veya ilçe gir">
+  <div class="header">
+    <h1>Türkiye Akıllı Hava Durumu</h1>
+    <p>Gerçek zamanlı meteoroloji ağı</p>
+  </div>
 
-  <button onclick="getWeather()">Hava Durumunu Göster</button>
+  <div class="controls">
+    <select id="citySelect" onchange="onCityChange()">
+      <option value="">İl seçiniz</option>
+      <option value="Bursa">Bursa</option>
+    </select>
 
-  <div id="loading" class="loading">📡 Veri alınıyor...</div>
+    <select id="districtSelect" disabled>
+      <option value="">İlçe seçiniz</option>
+    </select>
 
-  <div id="result"></div>
+    <button onclick="fetchWeather()">Hava Durumunu Göster</button>
+  </div>
 
-  <video autoplay loop muted class="bgvideo">
-    <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4">
-  </video>
+  <div id="loader" class="loader">Veriler alınıyor...</div>
 
-  <audio id="sound" src="https://assets.mixkit.co/sfx/preview/mixkit-tech-click-1140.mp3"></audio>
+  <div id="result" class="result"></div>
+
 </div>
 
 <script src="script.js"></script>
