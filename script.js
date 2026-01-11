@@ -1,27 +1,38 @@
-const cities = {
-"Adana":["Aladag","Ceyhan","Cukurova","Feke","Imamoglu","Karaisali","Karatas","Kozan","Pozanti","Saimbeyli","Sariçam","Seyhan","Tufanbeyli","Yumurtalik","Yuregir"],
-"Adiyaman":["Besni","Celikhan","Gerger","Golbasi","Kahta","Merkez","Samsat","Sincik","Tut"],
-"Afyonkarahisar":["Basmakci","Bayat","Bolvadin","Cay","Cobanlar","Dazkiri","Dinar","Emirdag","Evciler","Hocalar","Ihsaniye","Iscehisar","Kiziloren","Sandikli","Sinanpasa","Sultandagi","Suhut"],
-"Amasya":["Goynucek","Gumushacikoy","Hamamozu","Merkez","Merzifon","Suluova","Tasova"],
-"Ankara":["Altindag","Akyurt","Ayaş","Balâ","Beypazari","Camlidere","Cankaya","Cubuk","Elmadag","Etimesgut","Evren","Golbasi","Gudul","Haymana","Kahramankazan","Kalecik","Kecioren","Kizilcahamam","Mamak","Nallihan","Polatli","Pursaklar","Sereflikochisar","Sincan","Yenimahalle"],
-"Antalya":["Akseki","Aksu","Alanya","Demre","Dosemealti","Elmali","Finike","Gazipasa","Gundogmus","Ibradi","Kas","Kemer","Kepez","Konyaalti","Korkuteli","Kumluca","Manavgat","Muratpasa","Serik"],
-"Artvin":["Ardanuç","Arhavi","Borcka","Hopa","Kemalpasa","Merkez","Murgul","Savsat","Yusufeli"],
-"Aydin":["Bozdogan","Buharkent","Cine","Didim","Efeler","Germencik","Incirliova","Karacasu","Karpuzlu","Kocarli","Kosk","Kuyucak","Nazilli","Soke","Sultanhisar","Yenipazar"],
-"Balikesir":["Altieylul","Ayvalik","Balya","Bandirma","Bigadic","Burhaniye","Dursunbey","Edremit","Erdek","Gomec","Gonen","Havran","Ivrindi","Karesi","Kepsut","Manyas","Marmara","Savastepe","Sindirgi","Susurluk"],
-"Bilecik":["Bozuyuk","Golpazari","Inhisar","Merkez","Osmaneli","Pazaryeri","Sogut","Yenipazar"],
-"Bingol":["Adakli","Genc","Karlıova","Kigi","Merkez","Solhan","Yayladere","Yedisu"],
-"Bitlis":["Adilcevaz","Ahlat","Guroymak","Hizan","Merkez","Mutki","Tatvan"],
-"Bolu":["Dortdivan","Gerede","Goynuk","Kibriscik","Mengen","Merkez","Mudurnu","Seben","Yenicaga"],
-"Burdur":["Aglasun","Altinyayla","Bucak","Cavdir","Celtikci","Golhisar","Karamanli","Kemer","Merkez","Tefenni","Yesilova"],
-"Bursa":["Buyukorhan","Gemlik","Gursu","Harmancik","Inegol","Iznik","Karacabey","Keles","Kestel","Mudanya","Mustafakemalpasa","Nilüfer","Orhaneli","Orhangazi","Osmangazi","Yenisehir","Yildirim"],
-"Canakkale":["Ayvacik","Bayramic","Biga","Bozcaada","Can","Eceabat","Ezine","Gelibolu","Gokceada","Lapseki","Merkez","Yenice"],
-"Cankiri":["Atkaracalar","Bayramoren","Cerkes","Eldivan","Ilgaz","Kizilirmak","Korgun","Kursunlu","Merkez","Orta","Sabanozu","Yaprakli"],
-"Corum":["Alaca","Bayat","Bogazkale","Dodurga","Iskilip","Kargi","Lacin","Mecitozu","Merkez","Oguzlar","Ortakoy","Osmancik","Sungurlu","Ugurludag"],
-"Denizli":["Acipayam","Babadağ","Baklan","Bekilli","Beyağaç","Bozkurt","Buldan","Cal","Cameli","Cardak","Civril","Guney","Honaz","Kale","Merkezefendi","Pamukkale","Saraykoy","Serinhisar","Tavas"],
-"Diyarbakir":["Baglar","Bismil","Cermik","Cinar","Cungus","Dicle","Egil","Ergani","Hani","Hazro","Kayapinar","Kocakoy","Kulp","Lice","Silvan","Sur","Yenisehir"],
-"Edirne":["Enez","Havsa","Ipsala","Kesan","Lalapasa","Meric","Merkez","Suloglu","Uzunkopru"],
-"Elazig":["Ağın","Alacakaya","Aricak","Baskil","Karakoçan","Keban","Kovancilar","Maden","Merkez","Palu","Sivrice"],
-"Erzincan":["Çayırlı","Ilic","Kemah","Kemaliye","Merkez","Otlukbeli","Refahiye","Tercan","Uzuml"],
-"Erzurum":["Askale","Aziziye","Cat","Hinis","Horasan","Ilica","Karayazi","Koprukoy","Narman","Oltu","Olur","Pasinler","Pazaryolu","Sen","Tekman","Tortum","Uzundere","Yakutiye"]
-// ... devamı var, ama bu bile şimdiden profesyonel 😎
-};
+async function getWeather() {
+  const district = document.getElementById("districtSelect").value;
+  if (!district) return;
+
+  const loader = document.getElementById("loader");
+  const result = document.getElementById("result");
+
+  loader.style.display = "block";
+  result.innerHTML = "";
+
+  try {
+    const geo = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${district},Bursa,Turkey&count=1`,
+      { cache: "no-store" }
+    );
+    const geoData = await geo.json();
+
+    const { latitude, longitude } = geoData.results[0];
+
+    const weather = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`,
+      { cache: "no-store" }
+    );
+    const data = await weather.json();
+
+    loader.style.display = "none";
+
+    result.innerHTML = `
+      <h2>${district}, Bursa</h2>
+      🌡️ ${data.current.temperature_2m} °C<br>
+      💧 Nem: ${data.current.relative_humidity_2m}%<br>
+      💨 Rüzgar: ${data.current.wind_speed_10m} km/h
+    `;
+  } catch {
+    loader.style.display = "none";
+    result.innerHTML = "Veri alınamadı. Tekrar deneyin.";
+  }
+}
