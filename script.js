@@ -1,26 +1,37 @@
 async function getWeather() {
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("sound").play();
+
   const city = document.getElementById("city").value;
 
-  const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`);
+  const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=tr`);
   const geoData = await geo.json();
 
   if (!geoData.results) {
-    document.getElementById("result").innerHTML = "Şehir bulunamadı";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("result").innerHTML = "Yer bulunamadı";
     return;
   }
 
-  const lat = geoData.results[0].latitude;
-  const lon = geoData.results[0].longitude;
+  const { latitude, longitude, name, admin1 } = geoData.results[0];
 
-  const weather = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+  const weather = await fetch(
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`
+  );
   const data = await weather.json();
 
-  const temp = data.current_weather.temperature;
-  const wind = data.current_weather.windspeed;
+  const temp = data.current.temperature_2m;
+  const humidity = data.current.relative_humidity_2m;
+  const wind = data.current.wind_speed_10m;
+
+  document.getElementById("loading").style.display = "none";
 
   document.getElementById("result").innerHTML = `
-    <h2>${city.toUpperCase()}</h2>
-    🌡️ Sıcaklık: ${temp} °C <br>
-    💨 Rüzgar: ${wind} km/h
+    <h2>${name}, ${admin1}</h2>
+    🌡️ ${temp} °C<br>
+    💧 Nem: ${humidity}%<br>
+    💨 Rüzgar: ${wind} km/h<br><br>
+    <small>Global Meteorology Network · Live</small>
   `;
 }
