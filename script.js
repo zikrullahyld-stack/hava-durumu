@@ -1,5 +1,6 @@
 async function getWeather() {
   const district = document.getElementById("district").value;
+  if (!district) return;
 
   const geo = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${district},Bursa,Turkey&count=1`
