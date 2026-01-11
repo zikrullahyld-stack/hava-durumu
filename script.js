@@ -1,37 +1,55 @@
-async function getWeather() {
-  document.getElementById("loading").style.display = "block";
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("sound").play();
+* { box-sizing: border-box; }
 
-  const city = document.getElementById("city").value;
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top,#021027,#000);
+  font-family: system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
 
-  const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=tr`);
-  const geoData = await geo.json();
+.app {
+  width: 360px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 0 40px rgba(0,200,255,.4);
+}
 
-  if (!geoData.results) {
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("result").innerHTML = "Yer bulunamadı";
-    return;
-  }
+.header {
+  text-align: center;
+  margin-bottom: 15px;
+}
 
-  const { latitude, longitude, name, admin1 } = geoData.results[0];
+.controls select, button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+  border: none;
+}
 
-  const weather = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`
-  );
-  const data = await weather.json();
+button {
+  background: linear-gradient(135deg,#00eaff,#4f6bff);
+  cursor: pointer;
+  font-weight: bold;
+}
 
-  const temp = data.current.temperature_2m;
-  const humidity = data.current.relative_humidity_2m;
-  const wind = data.current.wind_speed_10m;
+.loader {
+  display: none;
+  margin-top: 15px;
+  text-align: center;
+  animation: blink 1s infinite;
+}
 
-  document.getElementById("loading").style.display = "none";
+@keyframes blink {
+  50% { opacity: .4; }
+}
 
-  document.getElementById("result").innerHTML = `
-    <h2>${name}, ${admin1}</h2>
-    🌡️ ${temp} °C<br>
-    💧 Nem: ${humidity}%<br>
-    💨 Rüzgar: ${wind} km/h<br><br>
-    <small>Global Meteorology Network · Live</small>
-  `;
+.result {
+  margin-top: 20px;
+  line-height: 1.6;
 }
