@@ -1,22 +1,26 @@
 async function getWeather() {
-  const district = document.getElementById("district").value;
-  if (!district) return;
+  const city = document.getElementById("city").value;
 
-  const geo = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${district},Bursa,Turkey&count=1`
-  );
+  const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`);
   const geoData = await geo.json();
 
-  const { latitude, longitude } = geoData.results[0];
+  if (!geoData.results) {
+    document.getElementById("result").innerHTML = "Şehir bulunamadı";
+    return;
+  }
 
-  const weather = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
-  );
+  const lat = geoData.results[0].latitude;
+  const lon = geoData.results[0].longitude;
+
+  const weather = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
   const data = await weather.json();
 
+  const temp = data.current_weather.temperature;
+  const wind = data.current_weather.windspeed;
+
   document.getElementById("result").innerHTML = `
-    <h2>${district}, Bursa</h2>
-    🌡️ ${data.current_weather.temperature} °C<br>
-    💨 Rüzgar: ${data.current_weather.windspeed} km/h
+    <h2>${city.toUpperCase()}</h2>
+    🌡️ Sıcaklık: ${temp} °C <br>
+    💨 Rüzgar: ${wind} km/h
   `;
 }
