@@ -1,50 +1,55 @@
-let display = document.getElementById("screen");
 let current = "0";
 let previous = null;
 let operator = null;
-let reset = false;
+
+const display = document.getElementById("display");
 
 function update() {
   display.textContent = current;
 }
 
-document.querySelectorAll("button").forEach(b=>{
-  b.onclick = ()=>{
-    const v = b.textContent;
+document.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const value = btn.textContent;
 
-    if (!isNaN(v) || v === ".") {
-      if (reset) { current = "0"; reset = false; }
-      if (v === "." && current.includes(".")) return;
-      current = current === "0" ? v : current + v;
+    if (!isNaN(value) || value === ".") {
+      if (value === "." && current.includes(".")) return;
+      if (current === "0") current = value;
+      else current += value;
     }
 
-    if (v === "AC") {
-      current = "0"; previous = null; operator = null;
+    if (value === "AC") {
+      current = "0";
+      previous = null;
+      operator = null;
     }
 
-    if (v === "±") current = (parseFloat(current)*-1).toString();
+    if (value === "±") {
+      current = (parseFloat(current) * -1).toString();
+    }
 
-    if (v === "%") current = (parseFloat(current)/100).toString();
+    if (value === "%") {
+      current = (parseFloat(current) / 100).toString();
+    }
 
-    if (["+", "−", "×", "÷"].includes(v)) {
+    if (["+", "−", "×", "÷"].includes(value)) {
       previous = parseFloat(current);
-      operator = v;
-      reset = true;
+      operator = value;
+      current = "0";
     }
 
-    if (v === "=" && operator) {
-      let n = parseFloat(current);
-      if (operator === "+") previous += n;
-      if (operator === "−") previous -= n;
-      if (operator === "×") previous *= n;
-      if (operator === "÷") previous /= n;
+    if (value === "=" && operator !== null) {
+      const num = parseFloat(current);
+      if (operator === "+") previous += num;
+      if (operator === "−") previous -= num;
+      if (operator === "×") previous *= num;
+      if (operator === "÷") previous /= num;
       current = previous.toString();
       operator = null;
-      reset = true;
     }
 
     update();
-  }
+  });
 });
 
 update();
