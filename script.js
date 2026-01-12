@@ -1,37 +1,46 @@
+let display = document.getElementById("screen");
 let current = "0";
 let previous = null;
 let operator = null;
+let reset = false;
 
-const display = document.getElementById("display");
+function update() {
+  display.textContent = current;
+}
 
-function update() { display.textContent = current; }
-
-document.querySelectorAll("button").forEach(btn => {
-  btn.onclick = () => {
-    const v = btn.textContent;
+document.querySelectorAll("button").forEach(b=>{
+  b.onclick = ()=>{
+    const v = b.textContent;
 
     if (!isNaN(v) || v === ".") {
-      if (current === "0") current = "";
-      current += v;
+      if (reset) { current = "0"; reset = false; }
+      if (v === "." && current.includes(".")) return;
+      current = current === "0" ? v : current + v;
     }
 
     if (v === "AC") {
       current = "0"; previous = null; operator = null;
     }
 
+    if (v === "±") current = (parseFloat(current)*-1).toString();
+
+    if (v === "%") current = (parseFloat(current)/100).toString();
+
     if (["+", "−", "×", "÷"].includes(v)) {
       previous = parseFloat(current);
-      current = "0";
       operator = v;
+      reset = true;
     }
 
-    if (v === "=") {
-      const n = parseFloat(current);
+    if (v === "=" && operator) {
+      let n = parseFloat(current);
       if (operator === "+") previous += n;
       if (operator === "−") previous -= n;
       if (operator === "×") previous *= n;
       if (operator === "÷") previous /= n;
       current = previous.toString();
+      operator = null;
+      reset = true;
     }
 
     update();
