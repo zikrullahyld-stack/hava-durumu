@@ -4,52 +4,38 @@ let operator = null;
 
 const display = document.getElementById("display");
 
-function update() {
-  display.textContent = current;
-}
+function update() { display.textContent = current; }
 
 document.querySelectorAll("button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const value = btn.textContent;
+  btn.onclick = () => {
+    const v = btn.textContent;
 
-    if (!isNaN(value) || value === ".") {
-      if (value === "." && current.includes(".")) return;
-      if (current === "0") current = value;
-      else current += value;
+    if (!isNaN(v) || v === ".") {
+      if (current === "0") current = "";
+      current += v;
     }
 
-    if (value === "AC") {
-      current = "0";
-      previous = null;
-      operator = null;
+    if (v === "AC") {
+      current = "0"; previous = null; operator = null;
     }
 
-    if (value === "±") {
-      current = (parseFloat(current) * -1).toString();
-    }
-
-    if (value === "%") {
-      current = (parseFloat(current) / 100).toString();
-    }
-
-    if (["+", "−", "×", "÷"].includes(value)) {
+    if (["+", "−", "×", "÷"].includes(v)) {
       previous = parseFloat(current);
-      operator = value;
       current = "0";
+      operator = v;
     }
 
-    if (value === "=" && operator !== null) {
-      const num = parseFloat(current);
-      if (operator === "+") previous += num;
-      if (operator === "−") previous -= num;
-      if (operator === "×") previous *= num;
-      if (operator === "÷") previous /= num;
+    if (v === "=") {
+      const n = parseFloat(current);
+      if (operator === "+") previous += n;
+      if (operator === "−") previous -= n;
+      if (operator === "×") previous *= n;
+      if (operator === "÷") previous /= n;
       current = previous.toString();
-      operator = null;
     }
 
     update();
-  });
+  }
 });
 
 update();
