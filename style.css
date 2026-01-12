@@ -1,28 +1,42 @@
 body {
-  background: linear-gradient(120deg, #74b9ff, #0984e3);
-  font-family: Arial;
-  text-align: center;
-  color: white;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:-apple-system, BlinkMacSystemFont;
 }
 
-.app {
-  margin-top: 80px;
-  background: rgba(0,0,0,0.2);
-  padding: 30px;
-  border-radius: 15px;
-  display: inline-block;
+.calculator {
+  width:320px;
+  background:black;
 }
 
-input {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
+#display {
+  color:white;
+  font-size:60px;
+  text-align:right;
+  padding:20px;
+}
+
+.buttons {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  padding:10px;
 }
 
 button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background: #ffeaa7;
+  height:70px;
+  border-radius:50%;
+  border:none;
+  font-size:28px;
+}
+
+button.orange { background:#ff9f0a; color:white; }
+button.gray { background:#a5a5a5; }
+
+.zero {
+  grid-column:span 2;
+  border-radius:35px;
 }
