@@ -1,42 +1,32 @@
-body {
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  font-family:-apple-system, BlinkMacSystemFont;
-}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>iPhone Hesap Makinesi</title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
-.calculator {
-  width:320px;
-  background:black;
-}
+<div class="calculator">
+  <div class="screen" id="screen">0</div>
 
-#display {
-  color:white;
-  font-size:60px;
-  text-align:right;
-  padding:20px;
-}
+  <div class="keys">
+    <button class="gray">AC</button>
+    <button class="gray">±</button>
+    <button class="gray">%</button>
+    <button class="op">÷</button>
 
-.buttons {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  padding:10px;
-}
+    <button>7</button><button>8</button><button>9</button><button class="op">×</button>
+    <button>4</button><button>5</button><button>6</button><button class="op">−</button>
+    <button>1</button><button>2</button><button>3</button><button class="op">+</button>
 
-button {
-  height:70px;
-  border-radius:50%;
-  border:none;
-  font-size:28px;
-}
+    <button class="zero">0</button>
+    <button>.</button>
+    <button class="op">=</button>
+  </div>
+</div>
 
-button.orange { background:#ff9f0a; color:white; }
-button.gray { background:#a5a5a5; }
-
-.zero {
-  grid-column:span 2;
-  border-radius:35px;
-}
+<script src="script.js"></script>
+</body>
+</html>
