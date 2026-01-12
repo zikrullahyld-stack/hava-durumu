@@ -1,26 +1,41 @@
-async function getWeather() {
-  const city = document.getElementById("city").value;
+let current = "0";
+let previous = null;
+let operator = null;
 
-  const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`);
-  const geoData = await geo.json();
+const display = document.getElementById("display");
 
-  if (!geoData.results) {
-    document.getElementById("result").innerHTML = "Şehir bulunamadı";
-    return;
+function update() { display.textContent = current; }
+
+document.querySelectorAll("button").forEach(btn => {
+  btn.onclick = () => {
+    const v = btn.textContent;
+
+    if (!isNaN(v) || v === ".") {
+      if (current === "0") current = "";
+      current += v;
+    }
+
+    if (v === "AC") {
+      current = "0"; previous = null; operator = null;
+    }
+
+    if (["+", "−", "×", "÷"].includes(v)) {
+      previous = parseFloat(current);
+      current = "0";
+      operator = v;
+    }
+
+    if (v === "=") {
+      const n = parseFloat(current);
+      if (operator === "+") previous += n;
+      if (operator === "−") previous -= n;
+      if (operator === "×") previous *= n;
+      if (operator === "÷") previous /= n;
+      current = previous.toString();
+    }
+
+    update();
   }
+});
 
-  const lat = geoData.results[0].latitude;
-  const lon = geoData.results[0].longitude;
-
-  const weather = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-  const data = await weather.json();
-
-  const temp = data.current_weather.temperature;
-  const wind = data.current_weather.windspeed;
-
-  document.getElementById("result").innerHTML = `
-    <h2>${city.toUpperCase()}</h2>
-    🌡️ Sıcaklık: ${temp} °C <br>
-    💨 Rüzgar: ${wind} km/h
-  `;
-}
+update();
