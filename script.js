@@ -1,34 +1,14 @@
-const cards = document.querySelectorAll(".card");
+function selectBank(bank) {
+  document.getElementById("transfer").innerHTML = `
+    <h3>${bank} Transfer</h3>
+    <input placeholder="IBAN" style="width:100%;padding:10px;margin-top:10px">
+    <input placeholder="Tutar" type="number" style="width:100%;padding:10px;margin-top:10px">
+    <button onclick="send()" style="width:100%;padding:12px;margin-top:12px;background:#003399;color:white;border:none;border-radius:10px">
+      Gönder
+    </button>
+  `;
+}
 
-cards.forEach(card => {
-
-  card.addEventListener("touchstart", () => {
-    card.classList.add("pressed");
-    if(navigator.vibrate) navigator.vibrate(20);
-  });
-
-  card.addEventListener("touchend", () => {
-    card.classList.remove("pressed");
-  });
-
-  card.addEventListener("mousedown", () => {
-    card.classList.add("pressed");
-  });
-
-  card.addEventListener("mouseup", () => {
-    card.classList.remove("pressed");
-  });
-
-  card.addEventListener("mouseleave", () => {
-    card.classList.remove("pressed");
-  });
-
-});
-
-function openSite(url){
-  document.body.classList.add("fadeout");
-  setTimeout(() => {
-    window.open(url, "_blank");
-    document.body.classList.remove("fadeout");
-  }, 350);
+function send() {
+  alert("Transfer başarılı ✔");
 }
