@@ -2,32 +2,44 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Hızlı Banka Erişim</title>
+<title>Banka Uygulaması</title>
 <link rel="stylesheet" href="style.css">
-<script defer src="app.js"></script>
 </head>
 <body>
 
-<div class="app">
+<div class="phone">
+  <div class="screen">
 
-  <h1>Hızlı Erişim</h1>
+    <header>Hızlı Transfer</header>
 
-  <div class="card" onclick="openSite('https://www.halkbank.com.tr')">
-    <img src="https://images.seeklogo.com/logo-png/28/1/halkbank-logo-png_seeklogo-288681.png">
-    <span>Halkbank</span>
+    <div class="content" id="content">
+
+      <h2>Bankanı Seç</h2>
+
+      <div class="banks">
+        <div class="bank" onclick="selectBank('Halkbank')">
+          <img src="https://images.seeklogo.com/logo-png/28/1/halkbank-logo-png_seeklogo-288681.png">
+          <span>Halkbank</span>
+        </div>
+
+        <div class="bank" onclick="selectBank('Ziraat Bankası')">
+          <img src="https://tse4.mm.bing.net/th/id/OIP.OIrOrCZxgQfPmayqxyAIbAHaFj?rs=1&pid=ImgDetMain&o=7&rm=3">
+          <span>Ziraat</span>
+        </div>
+
+        <div class="bank" onclick="selectBank('YaseminCanKontor')">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.3ud719a4J5hbp4eyNSBQRAHaEU?rs=1&pid=ImgDetMain&o=7&r3">
+          <span>YaseminCanKontor</span>
+        </div>
+      </div>
+
+      <div id="transfer"></div>
+
+    </div>
+
   </div>
-
-  <div class="card" onclick="openSite('https://www.ziraat.com.tr')">
-    <img src="https://tse4.mm.bing.net/th/id/OIP.OIrOrCZxgQfPmayqxyAIbAHaFj?rs=1&pid=ImgDetMain&o=7&rm=3">
-    <span>Ziraat Bankası</span>
-  </div>
-
-  <div class="card" onclick="openSite('https://yasemincankontor.co.tr')">
-    <img src="https://tse2.mm.bing.net/th/id/OIP.3ud719a4J5hbp4eyNSBQRAHaEU?rs=1&pid=ImgDetMain&o=7&rm=3">
-    <span>Yasemin Can Kontör</span>
-  </div>
-
 </div>
 
+<script src="app.js"></script>
 </body>
 </html>
