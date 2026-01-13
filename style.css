@@ -1,55 +1,12 @@
-body{
-  margin:0;
-  background:#0f172a;
-  font-family:Segoe UI, Arial;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+.pressed{
+  transform:scale(.95);
+  box-shadow:0 0 15px rgba(0,0,0,.6) inset;
 }
 
-.app{
-  width:340px;
-  background:#020617;
-  border-radius:30px;
-  padding:25px;
-  box-shadow:0 0 40px rgba(0,0,0,.6);
+.fadeout{
+  animation:fade .35s forwards;
 }
 
-h1{
-  text-align:center;
-  color:white;
-  margin-bottom:25px;
-}
-
-.card{
-  background:#1e293b;
-  border-radius:20px;
-  padding:15px;
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin-bottom:15px;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.card:hover{
-  transform:scale(1.05);
-  background:#2563eb;
-}
-
-.card img{
-  width:60px;
-  height:60px;
-  object-fit:contain;
-  background:white;
-  border-radius:12px;
-  padding:6px;
-}
-
-.card span{
-  color:white;
-  font-size:18px;
-  font-weight:600;
+@keyframes fade{
+  to{opacity:0;}
 }
