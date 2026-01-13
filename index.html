@@ -2,28 +2,52 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Hesap Makinesi</title>
+<title>Mini iPhone</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="calculator">
-  <div id="display">0</div>
+<div class="iphone">
+  <div class="notch"></div>
 
-  <div class="buttons">
-    <button class="gray">AC</button>
-    <button class="gray">±</button>
-    <button class="gray">%</button>
-    <button class="orange">÷</button>
-
-    <button>7</button><button>8</button><button>9</button><button class="orange">×</button>
-    <button>4</button><button>5</button><button>6</button><button class="orange">−</button>
-    <button>1</button><button>2</button><button>3</button><button class="orange">+</button>
-
-    <button class="zero">0</button>
-    <button>.</button>
-    <button class="orange">=</button>
+  <div id="home" class="screen active">
+    <div class="app" onclick="tap(); openApp('calc')"><div class="ico">🧮</div><span>Hesap</span></div>
+    <div class="app" onclick="tap(); openApp('weather')"><div class="ico">☁️</div><span>Hava</span></div>
+    <div class="app" onclick="tap(); openApp('clock')"><div class="ico">🕒</div><span>Saat</span></div>
+    <div class="app" onclick="tap(); openApp('counter')"><div class="ico">🔢</div><span>Sayaç</span></div>
+    <div class="app" onclick="tap(); openLink('https://www.ziraatbank.com.tr')"><div class="ico">🏦</div><span>Ziraat</span></div>
+    <div class="app" onclick="tap(); openLink('https://www.halkbank.com.tr')"><div class="ico">🏦</div><span>Halk</span></div>
+    <div class="app" onclick="tap(); openLink('https://www.vakifbank.com.tr')"><div class="ico">🏦</div><span>Vakıf</span></div>
+    <div class="app" onclick="tap(); openLink('https://www.google.com')"><div class="ico">🌐</div><span>Safari</span></div>
   </div>
+
+  <div id="calc" class="screen">
+    <div id="display">0</div>
+    <div class="grid">
+      <button onclick="press('7')">7</button><button onclick="press('8')">8</button><button onclick="press('9')">9</button><button onclick="press('÷')">➗</button>
+      <button onclick="press('4')">4</button><button onclick="press('5')">5</button><button onclick="press('6')">6</button><button onclick="press('×')">✖</button>
+      <button onclick="press('1')">1</button><button onclick="press('2')">2</button><button onclick="press('3')">3</button><button onclick="press('-')">➖</button>
+      <button class="zero" onclick="press('0')">0</button><button onclick="press('.')">.</button><button onclick="press('+')">➕</button><button onclick="calc()">=</button>
+    </div>
+  </div>
+
+  <div id="weather" class="screen center">
+    <h2>Bursa Hava</h2>
+    <input id="city" placeholder="Mustafakemalpasa">
+    <button onclick="getWeather()">Göster</button>
+    <div id="wres"></div>
+  </div>
+
+  <div id="clock" class="screen center"><div id="time"></div></div>
+
+  <div id="counter" class="screen center">
+    <h1 id="cnt">0</h1>
+    <button onclick="chg(1)">+</button>
+    <button onclick="chg(-1)">-</button>
+  </div>
+
+  <div class="home" onclick="goHome()">⌂</div>
 </div>
 
 <script src="script.js"></script>
