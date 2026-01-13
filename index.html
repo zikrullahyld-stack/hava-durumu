@@ -2,54 +2,32 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Mini iPhone</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hızlı Banka Erişim</title>
 <link rel="stylesheet" href="style.css">
+<script defer src="app.js"></script>
 </head>
 <body>
 
-<div class="iphone">
-  <div class="notch"></div>
+<div class="app">
 
-  <div id="home" class="screen active">
-    <div class="app" onclick="tap(); openApp('calc')"><div class="ico">🧮</div><span>Hesap</span></div>
-    <div class="app" onclick="tap(); openApp('weather')"><div class="ico">☁️</div><span>Hava</span></div>
-    <div class="app" onclick="tap(); openApp('clock')"><div class="ico">🕒</div><span>Saat</span></div>
-    <div class="app" onclick="tap(); openApp('counter')"><div class="ico">🔢</div><span>Sayaç</span></div>
-    <div class="app" onclick="tap(); openLink('https://www.ziraatbank.com.tr')"><div class="ico">🏦</div><span>Ziraat</span></div>
-    <div class="app" onclick="tap(); openLink('https://www.halkbank.com.tr')"><div class="ico">🏦</div><span>Halk</span></div>
-    <div class="app" onclick="tap(); openLink('https://www.vakifbank.com.tr')"><div class="ico">🏦</div><span>Vakıf</span></div>
-    <div class="app" onclick="tap(); openLink('https://www.google.com')"><div class="ico">🌐</div><span>Safari</span></div>
+  <h1>Hızlı Erişim</h1>
+
+  <div class="card" onclick="openSite('https://www.halkbank.com.tr')">
+    <img src="https://images.seeklogo.com/logo-png/28/1/halkbank-logo-png_seeklogo-288681.png">
+    <span>Halkbank</span>
   </div>
 
-  <div id="calc" class="screen">
-    <div id="display">0</div>
-    <div class="grid">
-      <button onclick="press('7')">7</button><button onclick="press('8')">8</button><button onclick="press('9')">9</button><button onclick="press('÷')">➗</button>
-      <button onclick="press('4')">4</button><button onclick="press('5')">5</button><button onclick="press('6')">6</button><button onclick="press('×')">✖</button>
-      <button onclick="press('1')">1</button><button onclick="press('2')">2</button><button onclick="press('3')">3</button><button onclick="press('-')">➖</button>
-      <button class="zero" onclick="press('0')">0</button><button onclick="press('.')">.</button><button onclick="press('+')">➕</button><button onclick="calc()">=</button>
-    </div>
+  <div class="card" onclick="openSite('https://www.ziraat.com.tr')">
+    <img src="https://tse4.mm.bing.net/th/id/OIP.OIrOrCZxgQfPmayqxyAIbAHaFj?rs=1&pid=ImgDetMain&o=7&rm=3">
+    <span>Ziraat Bankası</span>
   </div>
 
-  <div id="weather" class="screen center">
-    <h2>Bursa Hava</h2>
-    <input id="city" placeholder="Mustafakemalpasa">
-    <button onclick="getWeather()">Göster</button>
-    <div id="wres"></div>
+  <div class="card" onclick="openSite('https://yasemincankontor.co.tr')">
+    <img src="https://tse2.mm.bing.net/th/id/OIP.3ud719a4J5hbp4eyNSBQRAHaEU?rs=1&pid=ImgDetMain&o=7&rm=3">
+    <span>Yasemin Can Kontör</span>
   </div>
 
-  <div id="clock" class="screen center"><div id="time"></div></div>
-
-  <div id="counter" class="screen center">
-    <h1 id="cnt">0</h1>
-    <button onclick="chg(1)">+</button>
-    <button onclick="chg(-1)">-</button>
-  </div>
-
-  <div class="home" onclick="goHome()">⌂</div>
 </div>
 
-<script src="script.js"></script>
 </body>
 </html>
